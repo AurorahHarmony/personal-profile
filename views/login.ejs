@@ -1,9 +1,30 @@
 <%- include('partials/header') %>
-<h1>You've reached the login page.</h1>
-<form action="/login" method="post">
-	<input type="text" name="username"">
-	<input type="password" name="password" />
-	<button type="submit">Submit</button>
-</form>
+
+
+<section class="hero is-link is-fullheight">
+	<div class="hero-body">
+		<div class="container">
+			<div class="columns is-centered">
+				<div class="column is-5-tablet is-4-desktop is-3-widescreen">
+					<form action="/login" method="post" class="box">
+						<div class="field">
+							<label class="label">Username</label>
+							<div class="control">
+								<input class="input" type="text" name="username" placeholder="you@example.com" required>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label">Password</label>
+							<div class="control">
+								<input class="input" type="text" name="password" placeholder="******" required>
+							</div>
+						</div>
+						<button class="button is-info" type="submit">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 <%- include('partials/footer') %>
