@@ -20,7 +20,7 @@ const serverPort = process.env.PORT || 3000;
 const websiteName = 'Profiler:';
 //Routes
 app.get('/', (req, res) => {
-	res.send('Hello World');
+	res.render('home');
 });
 
 app
