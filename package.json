@@ -1,0 +1,19 @@
+{
+  "name": "personal-profile",
+  "version": "1.0.0",
+  "description": "Node app that allows creation of business card style personal profiles. ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AurorahHarmony/personal-profile.git"
+  },
+  "author": "Aurorah Harmony",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/AurorahHarmony/personal-profile/issues"
+  },
+  "homepage": "https://github.com/AurorahHarmony/personal-profile#readme"
+}
