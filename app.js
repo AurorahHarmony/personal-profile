@@ -33,6 +33,7 @@ const User = new mongoose.model('User', userSchema);
 const serverPort = process.env.PORT || 3000;
 const websiteName = 'Profiler:';
 //Routes
+//--Home--
 app.get('/', (req, res) => {
 	res.render('home');
 });
@@ -68,6 +69,15 @@ app
 		console.log(req.body);
 		// res.redirect('/login');
 		res.send(req.body);
+	});
+
+//--Profile Settings--
+app.route('/profile')
+	.get((req, res) => {
+		res.render('profile')
+	})
+	.post((req, res) => {
+
 	});
 
 //Open listening port for server requests
