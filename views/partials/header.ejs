@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-	<head>
-		<meta charset="utf-8" />
-		<% if (typeof pageName === "undefined" || !pageName) {%>
-		<title>Page name not set</title>
-		<%} else { %>
-		<title><%=pageName%></title>
-		<%}%>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<% if (typeof pageName === "undefined" || !pageName) {%>
+	<title>Page name not set</title>
+	<%} else { %>
+	<title><%=pageName%></title>
+	<%}%>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
 	</head>
 
-	<body></body>
-</html>
+	<body>
