@@ -23,6 +23,13 @@ app.get('/', (req, res) => {
 	res.render('home');
 });
 
+//--Register--
+app.route('/register').get((req, res) => {
+	res.render('register', { pageName: `${websiteName} Register` });
+}).post((req, res) => {
+
+});
+//--Login--
 app
 	.route('/login')
 	.get((req, res) => {
