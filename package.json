@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/AurorahHarmony/personal-profile/issues"
   },
-  "homepage": "https://github.com/AurorahHarmony/personal-profile#readme"
+  "homepage": "https://github.com/AurorahHarmony/personal-profile#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
