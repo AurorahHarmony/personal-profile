@@ -19,6 +19,16 @@ app.use(
 //Connect to Mongo
 mongoose.connect(process.env.MONGO, { useNewUrlParser: true });
 
+//Mongoose Schema
+const userSchema = new mongoose.Schema({
+	username: { type: String, required: true },
+	email: { type: String, required: true },
+	password: { type: String, required: true }
+});
+
+//Mongoose Model
+const User = new mongoose.model('User', userSchema);
+
 //Global Constants
 const serverPort = process.env.PORT || 3000;
 const websiteName = 'Profiler:';
@@ -28,11 +38,26 @@ app.get('/', (req, res) => {
 });
 
 //--Register--
-app.route('/register').get((req, res) => {
-	res.render('register', { pageName: `${websiteName} Register` });
-}).post((req, res) => {
+app.route('/register')
+	.get((req, res) => {
+		res.render('register', { pageName: `${websiteName} Register` });
+	})
+	.post((req, res) => {
+		const user = new User({
+			username: req.body.username,
+			email: req.body.email,
+			password: req.body.password
+		});
+		user.save((err) => {
+			if (err) {
+				console.log(err);
+				res.sendStatus(500);
+				return;
+			}
+			res.sendStatus(200);
 
-});
+		})
+	});
 //--Login--
 app
 	.route('/login')
