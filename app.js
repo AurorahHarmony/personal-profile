@@ -9,6 +9,9 @@ const app = express();
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
+//Global Constants
+const websiteName = 'Profiler:';
+//Routes
 app.get('/', (req, res) => {
 	res.send('Hello World');
 });
@@ -16,7 +19,7 @@ app.get('/', (req, res) => {
 app
 	.route('/login')
 	.get((req, res) => {
-		res.render('login');
+		res.render('login', { pageName: `${websiteName} Login` });
 	})
 	.post((req, res) => {
 		res.redirect('/login');

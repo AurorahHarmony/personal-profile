@@ -2,7 +2,11 @@
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8" />
-		<title>Personal Profile</title>
+		<% if (typeof pageName === "undefined" || !pageName) {%>
+		<title>Page name not set</title>
+		<%} else { %>
+		<title><%=pageName%></title>
+		<%}%>
 	</head>
 
 	<body></body>
