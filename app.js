@@ -2,11 +2,17 @@
 require('dotenv').config();
 const express = require('express');
 const ejs = require('ejs');
+const bodyParser = require('body-parser');
 
 //Express configuration
 const app = express();
 
 app.use(express.static('public'));
+app.use(
+	bodyParser.urlencoded({
+		extended: true
+	})
+);
 app.set('view engine', 'ejs');
 
 //Global Constants
@@ -22,6 +28,7 @@ app
 		res.render('login', { pageName: `${websiteName} Login` });
 	})
 	.post((req, res) => {
+		console.log(req.body);
 		res.redirect('/login');
 	});
 
