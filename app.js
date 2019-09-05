@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 //Express configuration
 const app = express();
@@ -14,6 +15,9 @@ app.use(
 		extended: true
 	})
 );
+
+//Connect to Mongo
+mongoose.connect(process.env.MONGO, { useNewUrlParser: true });
 
 //Global Constants
 const serverPort = process.env.PORT || 3000;
