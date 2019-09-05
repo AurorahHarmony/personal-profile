@@ -18,6 +18,7 @@
   "homepage": "https://github.com/AurorahHarmony/personal-profile#readme",
   "dependencies": {
     "dotenv": "^8.1.0",
+    "ejs": "^2.7.1",
     "express": "^4.17.1"
   }
 }
