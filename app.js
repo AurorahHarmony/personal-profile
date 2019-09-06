@@ -184,14 +184,14 @@ app
 				}
 			});
 		} else {
-			res.redirect('/register');
+			res.redirect('/login');
 		}
 	})
 	.post((req, res) => {});
 
 app.get('/logout', (req, res) => {
 	req.logout();
-	res.redirect('/register');
+	res.redirect('/');
 });
 
 //Open listening port for server requests
