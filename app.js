@@ -5,6 +5,7 @@ const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const flash = require('req-flash');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const LocalStrategy = require('passport-local').Strategy;
@@ -27,6 +28,7 @@ app.use(
 		saveUninitialized: false
 	})
 );
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -68,23 +70,18 @@ passport.use(
 		},
 		function(req, username, password, done) {
 			findOrCreateUser = () => {
-				// find a user in Mongo with provided username
 				User.findOne({ username: username }, (err, user) => {
-					// In case of any error return
 					if (err) {
 						console.log('Error in SignUp: ' + err);
 						return done(err);
 					}
-					// already exists
 					if (user) {
-						console.log('User already exists');
-						return done(null, false);
+						return done(null, false, req.flash('warning', 'User Already Exists'));
 					} else {
 						const newUser = new User({
 							username: username,
 							email: req.body.email,
-							password: password,
-							name: req.body.name
+							password: password
 						});
 
 						newUser.save(err => {
@@ -92,7 +89,6 @@ passport.use(
 								console.log('Error in Saving user: ' + err);
 								throw err;
 							}
-							console.log('User Registration succesful');
 							return done(null, newUser);
 						});
 					}
@@ -107,7 +103,7 @@ passport.use(
 );
 
 //Global Constants
-const serverPort = process.env.PORT || 3001;
+const serverPort = process.env.PORT || 3000;
 const websiteName = 'Profiler:';
 
 //Routes
@@ -118,7 +114,7 @@ app.get('/', (req, res) => {
 
 //--Register--
 app.get('/register', (req, res) => {
-	res.render('register', { pageName: `${websiteName} Register` });
+	res.render('register', { pageName: `${websiteName} Register`, warning: req.flash('warning') });
 });
 
 app.post(
