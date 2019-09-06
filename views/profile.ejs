@@ -1,1 +1,82 @@
-Profile page <%=username%>
+<%- include('partials/header') %>
+
+<style>
+nav {
+      box-shadow: 0px 0px 7px #0000001c;
+}
+</style>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+     <div class="navbar-item">
+        <%=username%>
+      </div>
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a href="/logout" class="button is-danger">
+            <strong>Logout</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<section class="section">
+  <div class="container is-widescreen">
+    <div class="notification">
+      <div class="columns">
+        <div class="column is-one-third-tablet is-one-quarter-desktop">Profile Picture<br><br><br><br><br><br><br><br><br><br><br></div>
+        <div class="column">Other stuff</div>
+      </div>
+      <div class="is-divider" data-content="OR"></div>
+      <div class="columns">
+        <div class="column is-one-third-tablet is-one-quarter-desktop">
+          <aside class="menu">
+            <p class="menu-label">
+              General
+            </p>
+            <ul class="menu-list">
+              <li><a>Dashboard</a></li>
+              <li><a>Analytics</a></li>
+            </ul>
+            <p class="menu-label">
+              Settings
+            </p>
+            <ul class="menu-list">
+              <li>
+                <a class="is-active">Profile Page</a>
+                <ul>
+                  <li><a>General</a></li>
+                  <li><a>Theme</a></li>
+                </ul>
+              </li>
+              <li><a>Connected Accounts</a></li>
+              <li><a>Account Settings</a></li>
+            </ul>
+          </aside>
+        </div>
+        <div class="column">
+          <h1 class="title">General</h1>
+          <h2 class="title is-5">Random Grouped Settings</h2>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore soluta doloremque alias beatae dolorem facere laborum voluptatem, officia eveniet assumenda quas repellat debitis ab reiciendis quasi adipisci itaque veritatis obcaecati? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum, eaque iure. Quis iure voluptatem debitis dolorum consequuntur? Itaque fuga, consequatur libero inventore voluptatibus assumenda quam, suscipit sequi dolor optio ea.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, quod. Totam, suscipit ducimus ut omnis consequatur nisi commodi fugit! Provident repellendus laboriosam, ad porro debitis quibusdam a autem delectus cum?</p>
+          <h2 class="title is-5">More Random Settings</h2>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore soluta doloremque alias beatae dolorem facere laborum voluptatem, officia eveniet assumenda quas repellat debitis ab reiciendis quasi adipisci itaque veritatis obcaecati? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum, eaque iure. Quis iure voluptatem debitis dolorum consequuntur? Itaque fuga, consequatur libero inventore voluptatibus assumenda quam, suscipit sequi dolor optio ea.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, quod. Totam, suscipit ducimus ut omnis consequatur nisi commodi fugit! Provident repellendus laboriosam, ad porro debitis quibusdam a autem delectus cum?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<%- include('partials/footer') %>
+
