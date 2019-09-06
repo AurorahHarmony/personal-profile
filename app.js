@@ -112,12 +112,10 @@ passport.use(
 			User.findOne({ username: username }, function(err, user) {
 				if (err) return done(err);
 				if (!user) {
-					console.log('User Not Found with username ' + username);
-					return done(null, false, req.flash('message', 'User Not found.'));
+					return done(null, false, req.flash('warning', 'User Not found.'));
 				}
 				if (user.password !== password) {
-					console.log('Invalid Password');
-					return done(null, false, req.flash('message', 'Invalid Password'));
+					return done(null, false, req.flash('warning', 'Invalid Password'));
 				}
 
 				return done(null, user);
@@ -152,7 +150,7 @@ app.post(
 app
 	.route('/login')
 	.get((req, res) => {
-		res.render('login', { pageName: `${websiteName} Login` });
+		res.render('login', { pageName: `${websiteName} Login`, warning: req.flash('warning') });
 	})
 	.post(
 		passport.authenticate('login', {

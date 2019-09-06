@@ -7,6 +7,11 @@
 				<div class="column is-5-tablet is-4-desktop is-3-widescreen">
 					<form action="/login" method="post" class="box">
 						<h1 class="title has-text-dark">Login</h1>
+						<% if ( typeof warning !== "undefined") { %>
+						<div class="notification is-warning">
+							<%= warning %>
+						</div>
+						<% } %>
 						<div class="field">
 							<label for="username" class="label">Username</label>
 							<div class="control">
