@@ -62,6 +62,7 @@ passport.deserializeUser(function(id, done) {
 	});
 });
 
+//--Register Strategy--
 passport.use(
 	'register',
 	new LocalStrategy(
@@ -100,6 +101,30 @@ passport.use(
 	)
 );
 
+//--Login Strategy--
+passport.use(
+	'login',
+	new LocalStrategy(
+		{
+			passReqToCallback: true
+		},
+		function(req, username, password, done) {
+			User.findOne({ username: username }, function(err, user) {
+				if (err) return done(err);
+				if (!user) {
+					console.log('User Not Found with username ' + username);
+					return done(null, false, req.flash('message', 'User Not found.'));
+				}
+				if (user.password !== password) {
+					console.log('Invalid Password');
+					return done(null, false, req.flash('message', 'Invalid Password'));
+				}
+
+				return done(null, user);
+			});
+		}
+	)
+);
 //Global Constants
 const serverPort = process.env.PORT || 3000;
 const websiteName = 'Profiler:';
@@ -129,10 +154,13 @@ app
 	.get((req, res) => {
 		res.render('login', { pageName: `${websiteName} Login` });
 	})
-	.post((req, res) => {
-		// res.redirect('/login');
-		res.send(req.body);
-	});
+	.post(
+		passport.authenticate('login', {
+			successRedirect: '/profile',
+			failureRedirect: '/login',
+			failureFlash: true
+		})
+	);
 
 //--Profile Settings--
 app
