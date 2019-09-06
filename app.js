@@ -4,7 +4,7 @@ const express = require('express');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bCrypt = require('bcrypt');
 const session = require('express-session');
 const flash = require('req-flash');
 const passport = require('passport');
@@ -83,7 +83,7 @@ passport.use(
 						const newUser = new User({
 							username: username,
 							email: req.body.email,
-							password: password
+							password: createHash(password)
 						});
 
 						newUser.save(err => {
@@ -102,6 +102,10 @@ passport.use(
 	)
 );
 
+const createHash = password => {
+	return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+};
+
 //--Login Strategy--
 passport.use(
 	'login',
@@ -115,7 +119,7 @@ passport.use(
 				if (!user) {
 					return done(null, false, req.flash('warning', 'User Not found.'));
 				}
-				if (user.password !== password) {
+				if (!isValidPassword(user, password)) {
 					return done(null, false, req.flash('warning', 'Invalid Password'));
 				}
 
@@ -124,6 +128,10 @@ passport.use(
 		}
 	)
 );
+
+const isValidPassword = (user, password) => {
+	return bCrypt.compareSync(password, user.password);
+};
 //Global Constants
 const serverPort = process.env.PORT || 3000;
 const websiteName = 'Profiler:';
