@@ -4,12 +4,11 @@ const express = require('express');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const bCrypt = require('bcrypt');
+// const bCrypt = require('bcrypt');
 const session = require('express-session');
 const flash = require('req-flash');
 const passport = require('passport');
-const passportLocalMongoose = require('passport-local-mongoose');
-const LocalStrategy = require('passport-local').Strategy;
+// const LocalStrategy = require('passport-local').Strategy;
 // const findOrCreate = require('mongoose-findorcreate');
 
 //Express configuration
