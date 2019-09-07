@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const md5 = require('md5');
 
 //Page template Constants
 const websiteName = 'Profiler:';
@@ -19,6 +20,18 @@ module.exports = passport => {
 	router.get('/', (req, res) => {
 		res.render('home', { pageName: `${websiteName} Let Yourself be Known` });
 	});
+
+	//--Profile Settings--
+	router
+		.route('/profile')
+		.get(isAuthenticated, (req, res) => {
+			res.render('profile', {
+				pageName: `${websiteName} Settings`,
+				username: req.user.username,
+				profileImage: `http://www.gravatar.com/avatar/${md5(req.user.email)}?s=400&d=identicon`
+			});
+		})
+		.post((req, res) => {});
 
 	//--Register--
 	router.get('/register', (req, res) => {
@@ -54,14 +67,6 @@ module.exports = passport => {
 				failureFlash: true
 			})
 		);
-
-	//--Profile Settings--
-	router
-		.route('/profile')
-		.get(isAuthenticated, (req, res) => {
-			res.render('profile', { pageName: `${websiteName} Settings`, username: req.user.username });
-		})
-		.post((req, res) => {});
 
 	router.get('/logout', (req, res) => {
 		req.logout();
