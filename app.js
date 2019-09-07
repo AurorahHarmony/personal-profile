@@ -28,7 +28,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Initalize flasher so that it can be stored in session data
-const flash = require('req-flash');
+const flash = require('connect-flash');
 app.use(flash());
 
 //Initialize Passport
@@ -42,6 +42,15 @@ const serverPort = process.env.PORT || 3000;
 const routes = require('./routes/index')(passport);
 app.use('/', routes);
 
+app.get('/test', (req, res) => {
+	req.flash('testMessage', 'theres a small issue my dude.');
+	req.flash('moreInfo', ['some other text ye', 'blep']);
+	res.redirect('/test2');
+});
+
+app.get('/test2', (req, res) => {
+	res.send(req.flash());
+});
 //Open listening port for server requests
 app.listen(serverPort, err => {
 	console.log(`Server has started on port ${serverPort}`);

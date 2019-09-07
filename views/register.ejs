@@ -7,7 +7,7 @@
 				<div class="column is-5-tablet is-4-desktop is-3-widescreen">
 					<form action="/register" method="post" class="box">
 						<h1 class="title has-text-dark">Register</h1>
-						<% if ( typeof warning !== "undefined") { %>
+						<% if (!Array.isArray(warning) || warning.length) { %>
 						<div class="notification is-warning">
 							<%= warning %>
 						</div>
