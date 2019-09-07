@@ -1,5 +1,5 @@
 const express = require('express');
-const route = express.Router();
+const router = express.Router();
 
 //Page template Constants
 const websiteName = 'Profiler:';
@@ -9,16 +9,16 @@ const User = require('../models/user');
 
 module.exports = passport => {
 	//--Home--
-	route.get('/', (req, res) => {
+	router.get('/', (req, res) => {
 		res.render('home', { pageName: `${websiteName} Let Yourself be Known` });
 	});
 
 	//--Register--
-	route.get('/register', (req, res) => {
+	router.get('/register', (req, res) => {
 		res.render('register', { pageName: `${websiteName} Register`, warning: req.flash('warning') });
 	});
 
-	route.post(
+	router.post(
 		'/register',
 		passport.authenticate('register', {
 			successRedirect: '/profile',
@@ -27,7 +27,7 @@ module.exports = passport => {
 		})
 	);
 	//--Login--
-	route
+	router
 		.route('/login')
 		.get((req, res) => {
 			res.render('login', { pageName: `${websiteName} Login`, warning: req.flash('warning') });
@@ -41,7 +41,7 @@ module.exports = passport => {
 		);
 
 	//--Profile Settings--
-	route
+	router
 		.route('/profile')
 		.get((req, res) => {
 			if (req.isAuthenticated()) {
@@ -60,10 +60,10 @@ module.exports = passport => {
 		})
 		.post((req, res) => {});
 
-	route.get('/logout', (req, res) => {
+	router.get('/logout', (req, res) => {
 		req.logout();
 		res.redirect('/');
 	});
 
-	return route;
+	return router;
 };
