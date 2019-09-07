@@ -15,7 +15,7 @@ mongoose.connect(process.env.MONGO_DB, { useNewUrlParser: true });
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
+app.use('/src', express.static('public/src'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
