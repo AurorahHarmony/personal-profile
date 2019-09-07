@@ -7,6 +7,11 @@ const websiteName = 'Profiler:';
 //Import Mongoose Models
 const User = require('../models/user');
 
+const isAuthenticated = function(req, res, next) {
+	if (req.isAuthenticated()) return next();
+	res.redirect('/login');
+};
+
 module.exports = passport => {
 	//--Home--
 	router.get('/', (req, res) => {
@@ -43,20 +48,8 @@ module.exports = passport => {
 	//--Profile Settings--
 	router
 		.route('/profile')
-		.get((req, res) => {
-			if (req.isAuthenticated()) {
-				User.findById(req.user.id, (err, foundUser) => {
-					if (err) {
-						console.log(err);
-					} else {
-						if (foundUser) {
-							res.render('profile', { pageName: `${websiteName} Settings`, username: foundUser.username });
-						}
-					}
-				});
-			} else {
-				res.redirect('/login');
-			}
+		.get(isAuthenticated, (req, res) => {
+			res.render('profile', { pageName: `${websiteName} Settings`, username: req.user.username });
 		})
 		.post((req, res) => {});
 
