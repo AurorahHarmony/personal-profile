@@ -7,11 +7,13 @@ const websiteName = 'Profiler:';
 //Import Mongoose Models
 const User = require('../models/user');
 
+//request authentication check
 const isAuthenticated = function(req, res, next) {
 	if (req.isAuthenticated()) return next();
 	res.redirect('/login');
 };
 
+//Routes
 module.exports = passport => {
 	//--Home--
 	router.get('/', (req, res) => {
