@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 
 //Connect to MongoDB
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGO, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_DB, { useNewUrlParser: true });
 
 //Express configuration
 const app = express();
