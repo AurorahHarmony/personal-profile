@@ -179,7 +179,7 @@ app
 					console.log(err);
 				} else {
 					if (foundUser) {
-						res.render('profile', { username: foundUser.username });
+						res.render('profile', { pageName: `${websiteName} Settings`, username: foundUser.username });
 					}
 				}
 			});
