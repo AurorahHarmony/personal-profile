@@ -10,7 +10,7 @@ const User = require('../models/user');
 module.exports = passport => {
 	//--Home--
 	route.get('/', (req, res) => {
-		res.render('home');
+		res.render('home', { pageName: `${websiteName} Let Yourself be Known` });
 	});
 
 	//--Register--
