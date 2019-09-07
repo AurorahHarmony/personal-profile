@@ -1,10 +1,11 @@
 const express = require('express');
 const route = express.Router();
 
+//Page template Constants
+const websiteName = 'Profiler:';
+
 //Import Mongoose Models
 const User = require('../models/user');
-
-const websiteName = 'Profiler:';
 
 module.exports = passport => {
 	//--Home--
