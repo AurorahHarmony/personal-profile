@@ -3,38 +3,34 @@ require('dotenv').config();
 const express = require('express');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 // const bCrypt = require('bcrypt');
-const session = require('express-session');
-const flash = require('req-flash');
-const passport = require('passport');
 // const LocalStrategy = require('passport-local').Strategy;
 // const findOrCreate = require('mongoose-findorcreate');
+
+//Connect to MongoDB
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGO, { useNewUrlParser: true });
 
 //Express configuration
 const app = express();
 
-app.use(express.static('public'));
 app.set('view engine', 'ejs');
-app.use(
-	bodyParser.urlencoded({
-		extended: true
-	})
-);
-app.use(
-	session({
-		secret: process.env.SESSION_SECRET,
-		resave: false,
-		saveUninitialized: false
-	})
-);
-app.use(flash());
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//Passport Configuration
+const passport = require('passport');
+const session = require('express-session');
+
+app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Connect to Mongo
-mongoose.connect(process.env.MONGO, { useNewUrlParser: true });
+//Initalize flasher so that it can be stored in session data
+const flash = require('req-flash');
+app.use(flash());
 
+//Initialize Passport
 const initPassport = require('./passport/init');
 initPassport(passport);
 
