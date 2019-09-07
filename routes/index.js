@@ -1,7 +1,7 @@
 const express = require('express');
 const route = express.Router();
 
-//Mongoose Models
+//Import Mongoose Models
 const User = require('../models/user');
 
 const websiteName = 'Profiler:';
