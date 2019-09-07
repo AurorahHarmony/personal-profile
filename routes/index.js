@@ -8,7 +8,7 @@ const websiteName = 'Profiler:';
 const User = require('../models/user');
 
 //request authentication check
-const isAuthenticated = function(req, res, next) {
+const isAuthenticated = (req, res, next) => {
 	if (req.isAuthenticated()) return next();
 	res.redirect('/login');
 };
