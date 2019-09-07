@@ -22,7 +22,11 @@ module.exports = passport => {
 
 	//--Register--
 	router.get('/register', (req, res) => {
-		res.render('register', { pageName: `${websiteName} Register`, warning: req.flash('warning') });
+		if (!req.isAuthenticated()) {
+			res.render('register', { pageName: `${websiteName} Register`, warning: req.flash('warning') });
+		} else {
+			res.redirect('/profile');
+		}
 	});
 
 	router.post(
@@ -37,7 +41,11 @@ module.exports = passport => {
 	router
 		.route('/login')
 		.get((req, res) => {
-			res.render('login', { pageName: `${websiteName} Login`, warning: req.flash('warning') });
+			if (!req.isAuthenticated()) {
+				res.render('login', { pageName: `${websiteName} Login`, warning: req.flash('warning') });
+			} else {
+				res.redirect('/profile');
+			}
 		})
 		.post(
 			passport.authenticate('login', {
