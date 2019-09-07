@@ -134,65 +134,10 @@ const isValidPassword = (user, password) => {
 };
 //Global Constants
 const serverPort = process.env.PORT || 3000;
-const websiteName = 'Profiler:';
 
 //Routes
-//--Home--
-app.get('/', (req, res) => {
-	res.render('home');
-});
-
-//--Register--
-app.get('/register', (req, res) => {
-	res.render('register', { pageName: `${websiteName} Register`, warning: req.flash('warning') });
-});
-
-app.post(
-	'/register',
-	passport.authenticate('register', {
-		successRedirect: '/profile',
-		failureRedirect: '/register',
-		failureFlash: true
-	})
-);
-//--Login--
-app
-	.route('/login')
-	.get((req, res) => {
-		res.render('login', { pageName: `${websiteName} Login`, warning: req.flash('warning') });
-	})
-	.post(
-		passport.authenticate('login', {
-			successRedirect: '/profile',
-			failureRedirect: '/login',
-			failureFlash: true
-		})
-	);
-
-//--Profile Settings--
-app
-	.route('/profile')
-	.get((req, res) => {
-		if (req.isAuthenticated()) {
-			User.findById(req.user.id, (err, foundUser) => {
-				if (err) {
-					console.log(err);
-				} else {
-					if (foundUser) {
-						res.render('profile', { pageName: `${websiteName} Settings`, username: foundUser.username });
-					}
-				}
-			});
-		} else {
-			res.redirect('/login');
-		}
-	})
-	.post((req, res) => {});
-
-app.get('/logout', (req, res) => {
-	req.logout();
-	res.redirect('/');
-});
+const routes = require('./routes/index')(passport);
+app.use('/', routes);
 
 //Open listening port for server requests
 app.listen(serverPort, err => {
