@@ -41,6 +41,8 @@ const serverPort = process.env.PORT || 3000;
 //Routes
 const routes = require('./routes/index')(passport);
 app.use('/', routes);
+const api = require('./routes/api')(passport);
+app.use('/api', api);
 
 app.get('/test', (req, res) => {
 	req.flash('testMessage', 'theres a small issue my dude.');
