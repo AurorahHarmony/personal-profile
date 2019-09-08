@@ -53,6 +53,16 @@ app.get('/test', (req, res) => {
 app.get('/test2', (req, res) => {
 	res.send(req.flash());
 });
+
+//Server Error Handling
+app.use((req, res, next) => {
+	return res.status(404).send('Could not find the specified url. 404');
+});
+
+app.use(function(err, req, res, next) {
+	return res.status(500).send('Server Error. 500');
+});
+
 //Open listening port for server requests
 app.listen(serverPort, err => {
 	console.log(`Server has started on port ${serverPort}`);
