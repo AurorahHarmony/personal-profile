@@ -40,16 +40,13 @@
 	<div class="modal-background"></div>
 	<div class="modal-card">
 		<header class="modal-card-head">
-			<p class="modal-card-title">Modal title</p>
+			<p class="modal-card-title" id="modal-title"></p>
 			<button class="delete" aria-label="close"></button>
 		</header>
-		<section class="modal-card-body">
-			<!-- Content ... -->
+		<section class="modal-card-body" id="modal-body">
+			<progress class="progress is-small is-primary" max="100"></progress>
 		</section>
-		<footer class="modal-card-foot">
-			<button class="button is-success">Save changes</button>
-			<button class="button">Cancel</button>
-		</footer>
+		<footer class="modal-card-foot" id="modal-footer"></footer>
 	</div>
 </div>
 
@@ -61,7 +58,8 @@
 			const Http = new XMLHttpRequest();
 			Http.onload = e => {
 				console.log('Response Recieved');
-				resolve(Http.responseText);
+				let response = JSON.parse(Http.responseText);
+				resolve(response);
 			};
 			Http.onerror = reject;
 			Http.open(method, route);
@@ -71,13 +69,59 @@
 		});
 	}
 
-	sendRequest('GET', '/login')
-		.then(result => {
-			console.log(result);
-		})
-		.catch(() => {
-			console.log('There was an error communicating with the server');
+	//Modal Handlers
+	const modalTitle = document.getElementById('modal-title');
+	const modalBody = document.getElementById('modal-body');
+	const modalFooter = document.getElementById('modal-footer');
+
+	function modalError() {
+		modalTitle.innerText = 'Error';
+		modalBody.innerHTML = 'There was an issue communicating with the server. Please try again later.';
+		modalFooter.innerHTML = '';
+	}
+
+	function updateModal(content) {
+		modalTitle.innerText = content.title;
+
+		//Set new modal content
+		let body = '';
+		let newElement;
+		content.body.forEach(element => {
+			switch (element.type) {
+				case 'html':
+					newElement = element.html;
+					break;
+				case 'input':
+					switch (element.input.type) {
+						case 'text':
+							newElement = `<input class="input" type="text" placeholder="${element.input.defaultText}">`;
+							break;
+					}
+					break;
+			}
+			body = body + newElement;
 		});
+		modalBody.innerHTML = body;
+
+		//Set new modal footer
+		let footer = '';
+		content.buttons.forEach(button => {
+			let newButton = `<button class="button ${button.class}">${button.text}</button>`;
+			footer = footer + newButton;
+		});
+		modalFooter.innerHTML = footer;
+	}
+	function deleteProfile() {
+		sendRequest('DELETE', '/profile')
+			.then(result => {
+				updateModal(result);
+			})
+			.catch(() => {
+				modalError();
+			});
+	}
+
+	deleteProfile();
 </script>
 
 <!--Content-->

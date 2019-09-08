@@ -22,16 +22,26 @@ module.exports = passport => {
 	});
 
 	//--Profile Settings--
-	router
-		.route('/profile')
-		.get(isAuthenticated, (req, res) => {
-			res.render('profile', {
-				pageName: `${websiteName} Settings`,
-				username: req.user.username,
-				profileImage: `http://www.gravatar.com/avatar/${md5(req.user.email)}?s=400&d=identicon`
-			});
-		})
-		.post((req, res) => {});
+	router.get('/profile', isAuthenticated, (req, res) => {
+		res.render('profile', {
+			pageName: `${websiteName} Settings`,
+			username: req.user.username,
+			profileImage: `http://www.gravatar.com/avatar/${md5(req.user.email)}?s=400&d=identicon`
+		});
+	});
+	router.delete('/profile', (req, res) => {
+		if (req.query.deleteConfirmed === true) {
+			console.log('Deleting Profile');
+			res.sendStatus(200);
+		} else {
+			const response = {
+				title: 'Delete Profile',
+				body: [{ type: 'html', html: 'Are you sure you wish to delete your account? This <b>CANNOT</b> be undone.' }, { type: 'input', input: { type: 'text', defaultText: 'Some Random Text' } }],
+				buttons: [{ class: 'is-danger', text: 'DELETE' }, { class: 'Cancel', text: 'Lel' }]
+			};
+			res.send(response);
+		}
+	});
 
 	//--Register--
 	router.get('/register', (req, res) => {
