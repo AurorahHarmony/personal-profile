@@ -30,14 +30,14 @@ module.exports = passport => {
 		});
 	});
 	router.delete('/profile', (req, res) => {
-		if (req.query.deleteConfirmed === true) {
+		if (req.query.deleteConfirmed === 'true') {
 			console.log('Deleting Profile');
-			res.sendStatus(200);
+			res.send({ redirect: '/' });
 		} else {
 			const response = {
 				title: 'Delete Profile',
-				body: [{ type: 'html', html: 'Are you sure you wish to delete your account? This <b>CANNOT</b> be undone.' }, { type: 'input', input: { type: 'text', defaultText: 'Some Random Text' } }],
-				buttons: [{ class: 'is-danger', text: 'DELETE' }, { class: 'Cancel', text: 'Lel' }]
+				body: [{ type: 'html', html: 'Are you sure you wish to delete your account? This <b>CANNOT</b> be undone.' }],
+				buttons: [{ class: 'is-danger', text: 'DELETE MY ACCOUNT', method: 'DELETE', route: '/profile?deleteConfirmed=true' }]
 			};
 			res.send(response);
 		}

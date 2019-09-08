@@ -2,17 +2,19 @@ function sendRequest(method, route, request) {
 	console.log('attempting post');
 
 	return new Promise((resolve, reject) => {
-		const Http = new XMLHttpRequest();
-		Http.onload = e => {
-			console.log('Response Recieved');
-			let response = JSON.parse(Http.responseText);
+		const xhr = new XMLHttpRequest();
+		xhr.onload = e => {
+			let response = JSON.parse(xhr.responseText);
+			if (typeof response.redirect !== 'undefined') {
+				window.location.href = response.redirect;
+			}
 			resolve(response);
 		};
-		Http.onerror = reject;
-		Http.open(method, route);
-		Http.setRequestHeader('Content-Type', 'application/json');
+		xhr.onerror = reject;
+		xhr.open(method, route);
+		xhr.setRequestHeader('Content-Type', 'application/json');
 		let data = JSON.stringify(request);
-		Http.send(data);
+		xhr.send(data);
 	});
 }
 
@@ -52,8 +54,13 @@ function updateModal(content) {
 
 	//Set new modal footer
 	let footer = '';
+	let newButton;
 	content.buttons.forEach(button => {
-		let newButton = `<button class="button ${button.class}">${button.text}</button>`;
+		if (typeof button.method !== 'undefined') {
+			newButton = `<button onclick="sendRequest('${button.method}', '${button.route}')" type="submit" class="button ${button.class}">${button.text}</button>`;
+		} else {
+			newButton = `<button class="button ${button.class}">${button.text}</button>`;
+		}
 		footer = footer + newButton;
 	});
 	modalFooter.innerHTML = footer;
