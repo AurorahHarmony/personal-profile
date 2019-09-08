@@ -31,8 +31,12 @@ module.exports = passport => {
 	});
 	router.delete('/profile', (req, res) => {
 		if (req.query.deleteConfirmed === 'true') {
-			console.log('Deleting Profile');
-			res.send({ redirect: '/' });
+			console.log('Deleting Profile' + req.user.id);
+			User.deleteOne({ _id: req.user.id }, err => {
+				if (!err) {
+					res.send({ redirect: '/' });
+				}
+			});
 		} else {
 			const response = {
 				title: 'Delete Profile',
