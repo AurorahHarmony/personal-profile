@@ -31,10 +31,13 @@ module.exports = passport => {
 	});
 	router.delete('/profile', (req, res) => {
 		if (req.query.deleteConfirmed === 'true') {
-			console.log('Deleting Profile' + req.user.id);
+			let deadId = req.user.id;
+			let deadName = req.user.username;
 			User.deleteOne({ _id: req.user.id }, err => {
 				if (!err) {
-					res.send({ redirect: '/' });
+					req.flash('deadId', deadId);
+					req.flash('deadName', deadName);
+					res.send({ redirect: `/deleted` });
 				}
 			});
 		} else {
@@ -85,6 +88,15 @@ module.exports = passport => {
 	router.get('/logout', (req, res) => {
 		req.logout();
 		res.redirect('/');
+	});
+
+	router.get('/deleted', (req, res) => {
+		let deadId = req.flash('deadId');
+		if (!Array.isArray(deadId) || deadId.length) {
+			res.render('infoPage.ejs', { pageName: `${websiteName} Account Deleted`, title: `Account: <b>${deadId}</b>`, body: `with the username <b>${req.flash('deadName')}</b> has been deleted successfully` });
+		} else {
+			res.redirect('/');
+		}
 	});
 
 	return router;
