@@ -9,6 +9,7 @@
 	}
 </style>
 
+<!--Navbar-->
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
 	<div class="navbar-brand">
 		<div class="navbar-item">
@@ -33,6 +34,53 @@
 		</div>
 	</div>
 </nav>
+
+<!--Popup-->
+<div class="modal is-active">
+	<div class="modal-background"></div>
+	<div class="modal-card">
+		<header class="modal-card-head">
+			<p class="modal-card-title">Modal title</p>
+			<button class="delete" aria-label="close"></button>
+		</header>
+		<section class="modal-card-body">
+			<!-- Content ... -->
+		</section>
+		<footer class="modal-card-foot">
+			<button class="button is-success">Save changes</button>
+			<button class="button">Cancel</button>
+		</footer>
+	</div>
+</div>
+
+<script>
+	function sendRequest(method, route, request) {
+		console.log('attempting post');
+
+		return new Promise((resolve, reject) => {
+			const Http = new XMLHttpRequest();
+			Http.onload = e => {
+				console.log('Response Recieved');
+				resolve(Http.responseText);
+			};
+			Http.onerror = reject;
+			Http.open(method, route);
+			Http.setRequestHeader('Content-Type', 'application/json');
+			let data = JSON.stringify(request);
+			Http.send(data);
+		});
+	}
+
+	sendRequest('GET', '/login')
+		.then(result => {
+			console.log(result);
+		})
+		.catch(() => {
+			console.log('There was an error communicating with the server');
+		});
+</script>
+
+<!--Content-->
 <section class=" section body-top-padding">
 	<div class="container is-widescreen">
 		<div class="notification">
@@ -86,6 +134,6 @@
 </section>
 
 <!--Toggle Navbar-->
-<script src="/src/navToggle.js"></script>
+<script src="/src/js/navToggle.js"></script>
 
 <%- include('partials/footer') %>
