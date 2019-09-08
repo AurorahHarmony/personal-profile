@@ -36,12 +36,12 @@
 </nav>
 
 <!--Popup-->
-<div class="modal is-active">
+<div class="modal" id="modal">
 	<div class="modal-background"></div>
 	<div class="modal-card">
 		<header class="modal-card-head">
 			<p class="modal-card-title" id="modal-title"></p>
-			<button class="delete" aria-label="close"></button>
+			<button class="delete" aria-label="close" onclick="hideModal()"></button>
 		</header>
 		<section class="modal-card-body" id="modal-body">
 			<progress class="progress is-small is-primary" max="100"></progress>
@@ -92,6 +92,7 @@
 				<div class="column">
 					<h1 class="title">General</h1>
 					<h2 class="title is-5">Random Grouped Settings</h2>
+					<button class="button is-danger" onclick="deleteProfile()">Delete Account</button>
 					<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore soluta doloremque alias beatae dolorem facere laborum voluptatem, officia eveniet assumenda quas repellat debitis ab reiciendis quasi adipisci itaque veritatis obcaecati? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum, eaque iure. Quis iure voluptatem debitis dolorum consequuntur? Itaque fuga, consequatur libero inventore voluptatibus assumenda quam, suscipit sequi dolor optio ea.</p>
 					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, quod. Totam, suscipit ducimus ut omnis consequatur nisi commodi fugit! Provident repellendus laboriosam, ad porro debitis quibusdam a autem delectus cum?</p>
 					<h2 class="title is-5">More Random Settings</h2>

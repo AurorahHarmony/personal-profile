@@ -19,6 +19,7 @@ function sendRequest(method, route, request) {
 }
 
 //Modal Handlers
+const modal = document.getElementById('modal');
 const modalTitle = document.getElementById('modal-title');
 const modalBody = document.getElementById('modal-body');
 const modalFooter = document.getElementById('modal-footer');
@@ -65,7 +66,13 @@ function updateModal(content) {
 	});
 	modalFooter.innerHTML = footer;
 }
+
+//Hide Modal
+function hideModal() {
+	modal.classList.remove('is-active');
+}
 function deleteProfile() {
+	modal.classList.add('is-active');
 	sendRequest('DELETE', '/profile')
 		.then(result => {
 			updateModal(result);
@@ -74,5 +81,3 @@ function deleteProfile() {
 			modalError();
 		});
 }
-
-deleteProfile();
