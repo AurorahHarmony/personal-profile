@@ -1,33 +1,38 @@
 {
-  "name": "personal-profile",
-  "version": "1.0.0",
-  "description": "Node app that allows creation of business card style personal profiles. ",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AurorahHarmony/personal-profile.git"
-  },
-  "author": "Aurorah Harmony",
-  "license": "SEE LICENSE IN LICENSE",
-  "bugs": {
-    "url": "https://github.com/AurorahHarmony/personal-profile/issues"
-  },
-  "homepage": "https://github.com/AurorahHarmony/personal-profile#readme",
-  "dependencies": {
-    "bcrypt": "^3.0.6",
-    "body-parser": "^1.19.0",
-    "connect-flash": "^0.1.1",
-    "dotenv": "^8.1.0",
-    "ejs": "^2.7.1",
-    "express": "^4.17.1",
-    "express-session": "^1.16.2",
-    "md5": "^2.2.1",
-    "mongoose": "^5.6.12",
-    "mongoose-findorcreate": "^3.0.0",
-    "passport": "^0.4.0",
-    "passport-local": "^1.0.0"
-  }
+	"name": "personal-profile",
+	"version": "1.0.0",
+	"description": "Node app that allows creation of business card style personal profiles. ",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/AurorahHarmony/personal-profile.git"
+	},
+	"author": "Aurorah Harmony",
+	"license": "SEE LICENSE IN LICENSE",
+	"bugs": {
+		"url": "https://github.com/AurorahHarmony/personal-profile/issues"
+	},
+	"homepage": "https://github.com/AurorahHarmony/personal-profile#readme",
+	"dependencies": {
+		"bcrypt": "^3.0.6",
+		"body-parser": "^1.19.0",
+		"connect-flash": "^0.1.1",
+		"dotenv": "^8.1.0",
+		"ejs": "^2.7.1",
+		"express": "^4.17.1",
+		"express-session": "^1.16.2",
+		"md5": "^2.2.1",
+		"mongoose": "^5.6.12",
+		"mongoose-findorcreate": "^3.0.0",
+		"passport": "^0.4.0",
+		"passport-local": "^1.0.0"
+	},
+	"nodemonConfig": {
+		"ignore": [
+			"public/*"
+		]
+	}
 }
