@@ -43,6 +43,8 @@ const routes = require('./routes/index')(passport);
 app.use('/', routes);
 const api = require('./routes/api')(passport);
 app.use('/api', api);
+const profileSettings = require('./routes/profile-settings')(passport);
+app.use('/profile', profileSettings);
 
 app.get('/test', (req, res) => {
 	req.flash('testMessage', 'theres a small issue my dude.');

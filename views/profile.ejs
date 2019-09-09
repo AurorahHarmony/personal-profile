@@ -70,37 +70,27 @@
 							General
 						</p>
 						<ul class="menu-list">
-							<li><a>Dashboard</a></li>
-							<li><a>Analytics</a></li>
+							<li><a class="is-active triggersRequest" data-returnto="dashboard" data-method="GET" data-route="/profile/dashboard">Dashboard</a></li>
+							<!-- <li><a>Analytics</a></li> -->
 						</ul>
 						<p class="menu-label">
 							Settings
 						</p>
 						<ul class="menu-list">
-							<li>
-								<a class="is-active">Profile Page</a>
+							<!-- <li>
+								<a>Profile Page</a>
 								<ul>
 									<li><a>General</a></li>
 									<li><a>Theme</a></li>
 								</ul>
 							</li>
-							<li><a>Connected Accounts</a></li>
-							<li><a>Account Settings</a></li>
+							<li><a>Connected Accounts</a></li> -->
+							<li><a class="triggersRequest" data-returnto="dashboard" data-method="GET" data-route="/profile/account-settings">Account Settings</a></li>
 						</ul>
 					</aside>
 				</div>
-				<div class="column">
-					<h1 class="title">General</h1>
-					<h2 class="title is-5">Random Grouped Settings</h2>
-					<button class="button is-danger triggersRequest" data-returnto="modal" data-method="DELETE" data-route="/profile">Delete Account</button>
-					<button class="button is-info triggersRequest" data-returnto="modal" data-method="DELETE" data-route="/profile">One</button>
-					<button class="button is-info triggersRequest">Two</button>
-					<button class="button is-info triggersRequest">Three</button>
-					<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore soluta doloremque alias beatae dolorem facere laborum voluptatem, officia eveniet assumenda quas repellat debitis ab reiciendis quasi adipisci itaque veritatis obcaecati? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum, eaque iure. Quis iure voluptatem debitis dolorum consequuntur? Itaque fuga, consequatur libero inventore voluptatibus assumenda quam, suscipit sequi dolor optio ea.</p>
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, quod. Totam, suscipit ducimus ut omnis consequatur nisi commodi fugit! Provident repellendus laboriosam, ad porro debitis quibusdam a autem delectus cum?</p>
-					<h2 class="title is-5">More Random Settings</h2>
-					<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore soluta doloremque alias beatae dolorem facere laborum voluptatem, officia eveniet assumenda quas repellat debitis ab reiciendis quasi adipisci itaque veritatis obcaecati? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum, eaque iure. Quis iure voluptatem debitis dolorum consequuntur? Itaque fuga, consequatur libero inventore voluptatibus assumenda quam, suscipit sequi dolor optio ea.</p>
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, quod. Totam, suscipit ducimus ut omnis consequatur nisi commodi fugit! Provident repellendus laboriosam, ad porro debitis quibusdam a autem delectus cum?</p>
+				<div class="column" id="settings-page">
+					<%- include('partials/dashboard/dash') %>
 				</div>
 			</div>
 		</div>

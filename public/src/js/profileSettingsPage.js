@@ -1,10 +1,13 @@
 function sendRequest(method, route, request) {
-	console.log('attempting post');
-
 	return new Promise((resolve, reject) => {
 		const xhr = new XMLHttpRequest();
 		xhr.onload = e => {
-			let response = JSON.parse(xhr.responseText);
+			let response;
+			if (xhr.getResponseHeader('type') === 'html') {
+				response = xhr.responseText;
+			} else {
+				response = JSON.parse(xhr.responseText);
+			}
 			if (typeof response.redirect !== 'undefined') {
 				window.location.href = response.redirect;
 			}
@@ -28,9 +31,6 @@ function modalError() {
 	modalTitle.innerText = 'Error';
 	modalBody.innerHTML = 'There was an issue communicating with the server. Please try again later.';
 	modalFooter.innerHTML = '';
-	setTimeout(() => {
-		window.location.href = '/profile';
-	}, 1000);
 }
 
 function updateModal(content) {
@@ -99,18 +99,40 @@ function requestModal(method, route, request) {
 		});
 }
 
-//Dynamically assign request listener
-let triggersRequest = document.getElementsByClassName('triggersRequest');
-
-for (let i = 0; i < triggersRequest.length; i++) {
-	triggersRequest[i].addEventListener('click', e => {
-		let dataset = triggersRequest[i].dataset;
-		if (dataset.returnto === 'modal') {
-			requestModal(dataset.method, dataset.route, dataset.request);
-			return;
-		}
-		if (dataset.returnto === 'dashboard') {
-			console.log('Not yet implemented');
-		}
-	});
+//Set Dashboard content from trigger
+const dashboardBody = document.getElementById('settings-page');
+function setDashboard(button, method, route, request) {
+	let activeMenuItem = document.getElementsByClassName('is-active');
+	for (let i = 0; i < activeMenuItem.length; i++) {
+		activeMenuItem[i].classList.remove('is-active');
+	}
+	button.classList.add('is-active');
+	dashboardBody.innerHTML = '<progress class="progress is-small is-primary" max="100"></progress>';
+	sendRequest(method, route, request)
+		.then(result => {
+			dashboardBody.innerHTML = result;
+			updateTriggerHandlers();
+		})
+		.catch(() => {
+			dashboardBody.innerHTML = 'There was an issue communicating with the server. Please try again later.';
+		});
 }
+
+//Dynamically trigger handler
+function updateTriggerHandlers() {
+	let triggersRequest = document.getElementsByClassName('triggersRequest');
+
+	for (let i = 0; i < triggersRequest.length; i++) {
+		triggersRequest[i].addEventListener('click', e => {
+			let dataset = triggersRequest[i].dataset;
+			if (dataset.returnto === 'modal') {
+				requestModal(dataset.method, dataset.route, dataset.request);
+				return;
+			}
+			if (dataset.returnto === 'dashboard') {
+				setDashboard(triggersRequest[i], dataset.method, dataset.route, dataset.request);
+			}
+		});
+	}
+}
+updateTriggerHandlers();
