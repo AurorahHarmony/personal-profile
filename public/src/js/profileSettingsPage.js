@@ -28,6 +28,9 @@ function modalError() {
 	modalTitle.innerText = 'Error';
 	modalBody.innerHTML = 'There was an issue communicating with the server. Please try again later.';
 	modalFooter.innerHTML = '';
+	setTimeout(() => {
+		window.location.href = '/profile';
+	}, 1000);
 }
 
 function updateModal(content) {
@@ -70,6 +73,9 @@ function updateModal(content) {
 //Hide Modal
 function hideModal() {
 	modal.classList.remove('is-active');
+	modalTitle.innerText = 'Loading';
+	modalBody.innerHTML = '<progress class="progress is-small is-primary" max="100"></progress>';
+	modalFooter.innerHTML = '';
 }
 function deleteProfile() {
 	modal.classList.add('is-active');
@@ -80,4 +86,31 @@ function deleteProfile() {
 		.catch(() => {
 			modalError();
 		});
+}
+
+function requestModal(method, route, request) {
+	modal.classList.add('is-active');
+	sendRequest(method, route, request)
+		.then(result => {
+			updateModal(result);
+		})
+		.catch(() => {
+			modalError();
+		});
+}
+
+//Dynamically assign request listener
+let triggersRequest = document.getElementsByClassName('triggersRequest');
+
+for (let i = 0; i < triggersRequest.length; i++) {
+	triggersRequest[i].addEventListener('click', e => {
+		let dataset = triggersRequest[i].dataset;
+		if (dataset.returnto === 'modal') {
+			requestModal(dataset.method, dataset.route, dataset.request);
+			return;
+		}
+		if (dataset.returnto === 'dashboard') {
+			console.log('Not yet implemented');
+		}
+	});
 }
