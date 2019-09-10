@@ -1,3 +1,5 @@
+let interactionsEnabled = true;
+
 function sendRequest(method, route, request) {
 	return new Promise((resolve, reject) => {
 		const xhr = new XMLHttpRequest();
@@ -11,6 +13,7 @@ function sendRequest(method, route, request) {
 			if (typeof response.redirect !== 'undefined') {
 				window.location.href = response.redirect;
 			}
+			interactionsEnabled = true;
 			resolve(response);
 		};
 		xhr.onerror = reject;
@@ -127,14 +130,20 @@ function updateTriggerHandlers() {
 
 		if (dataset.returnto === 'modal') {
 			triggersRequest[i].addEventListener('click', e => {
-				requestModal(dataset.method, dataset.route, dataset.request);
+				if (interactionsEnabled) {
+					interactionsEnabled = false;
+					requestModal(dataset.method, dataset.route, dataset.request);
+				}
 				return;
 			});
 		}
 
 		if (dataset.returnto === 'dashboard') {
 			triggersRequest[i].addEventListener('click', e => {
-				setDashboard(triggersRequest[i], dataset.method, dataset.route, dataset.request);
+				if (interactionsEnabled) {
+					interactionsEnabled = false;
+					setDashboard(triggersRequest[i], dataset.method, dataset.route, dataset.request);
+				}
 			});
 		}
 	}
