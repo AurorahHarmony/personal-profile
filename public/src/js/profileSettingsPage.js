@@ -123,16 +123,21 @@ function updateTriggerHandlers() {
 	let triggersRequest = document.getElementsByClassName('triggersRequest');
 
 	for (let i = 0; i < triggersRequest.length; i++) {
-		triggersRequest[i].addEventListener('click', e => {
-			let dataset = triggersRequest[i].dataset;
-			if (dataset.returnto === 'modal') {
+		let dataset = triggersRequest[i].dataset;
+
+		if (dataset.returnto === 'modal') {
+			triggersRequest[i].addEventListener('click', e => {
 				requestModal(dataset.method, dataset.route, dataset.request);
 				return;
-			}
-			if (dataset.returnto === 'dashboard') {
+			});
+		}
+
+		if (dataset.returnto === 'dashboard') {
+			triggersRequest[i].addEventListener('click', e => {
 				setDashboard(triggersRequest[i], dataset.method, dataset.route, dataset.request);
-			}
-		});
+			});
+		}
 	}
 }
+
 updateTriggerHandlers();
