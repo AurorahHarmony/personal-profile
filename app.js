@@ -46,16 +46,6 @@ app.use('/api', api);
 const profileSettings = require('./routes/profile-settings')(passport);
 app.use('/profile', profileSettings);
 
-app.get('/test', (req, res) => {
-	req.flash('testMessage', 'theres a small issue my dude.');
-	req.flash('moreInfo', ['some other text ye', 'blep']);
-	res.redirect('/test2');
-});
-
-app.get('/test2', (req, res) => {
-	res.send(req.flash());
-});
-
 //Server Error Handling
 app.use((req, res, next) => {
 	return res.status(404).send('Could not find the specified url. 404');
