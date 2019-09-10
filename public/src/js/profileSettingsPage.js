@@ -4,17 +4,21 @@ function sendRequest(method, route, request) {
 	return new Promise((resolve, reject) => {
 		const xhr = new XMLHttpRequest();
 		xhr.onload = e => {
-			let response;
+			let response = xhr.responseText;
 			if (xhr.getResponseHeader('type') === 'html') {
-				response = xhr.responseText;
+				resolve(response);
 			} else {
-				response = JSON.parse(xhr.responseText);
+				try {
+					response = JSON.parse(xhr.responseText);
+				} catch (e) {
+					reject;
+				}
+				resolve(response);
 			}
 			if (typeof response.redirect !== 'undefined') {
 				window.location.href = response.redirect;
 			}
 			interactionsEnabled = true;
-			resolve(response);
 		};
 		xhr.onerror = reject;
 		xhr.open(method, route);
