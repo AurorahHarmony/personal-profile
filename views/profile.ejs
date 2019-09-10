@@ -7,6 +7,15 @@
 	.body-top-padding {
 		margin-top: 1.5rem;
 	}
+	#profile-image {
+		transition-duration: 400ms;
+		transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	}
+	#profile-image:hover {
+		box-shadow: #00000080 0px 0px 12px;
+		transform: scale(1.02);
+		cursor: pointer;
+	}
 </style>
 
 <!--Navbar-->
@@ -57,7 +66,7 @@
 			<div class="columns">
 				<div class="column is-one-third-tablet is-one-quarter-desktop">
 					<figure class="image is-square">
-						<img class="is-rounded" src="<%= profileImage %>" />
+						<img class="is-rounded triggersRequest" id="profile-image" data-returnto="modal" data-method="GET" data-route="/profile/image" src="<%= profileImage %>" />
 					</figure>
 				</div>
 				<div class="column">Other stuff</div>

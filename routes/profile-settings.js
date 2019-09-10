@@ -20,5 +20,14 @@ module.exports = passport => {
 		res.render('partials/dashboard/account-settings');
 	});
 
+	router.get('/image', (req, res) => {
+		const response = {
+			title: 'Profile Image',
+			body: [{ type: 'html', html: 'This page lets ya change your profile image~!' }],
+			buttons: [{ class: 'is-success', text: 'Save', method: 'PUT', route: '/image' }]
+		};
+		res.send(response);
+	});
+
 	return router;
 };
